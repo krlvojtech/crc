@@ -1,0 +1,19 @@
+# CoolRunner-II CPLD Starter Board
+
+# Inputs
+# Pushbuttons
+NET BTN0        LOC = P143;
+NET BTN1        LOC = P94;
+# Slide Switches
+NET SW0         LOC = P39;
+
+# Outputs
+# LEDs
+NET LED<0>      LOC = P69;
+NET LED<1>      LOC = P68;
+NET LED<2>      LOC = P66;
+NET LED<3>      LOC = P64;
+
+# Clock
+NET CLK         LOC = P38;
+
