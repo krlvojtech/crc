@@ -22,14 +22,15 @@ architecture Behavioral of top is
     signal code:   bit_vector(11 downto 0) := "100100000000";   
     signal mask0:  bit_vector(11 downto 0) := "000000000000";
     signal mask1:  bit_vector(11 downto 0) := "000000000001";
-    signal ledd:   bit_vector(3 downto 0)  := "0000";
+    signal mask2:  bit_vector(11 downto 0) := "000000001111";
+    signal ledd:   bit_vector(11 downto 0) := "000000000000";
     
 begin
 
 process (CLK)
     begin
         if rising_edge(CLK) then
-            tmp25 <= tmp25 + 1;			-- cítac
+            tmp25 <= tmp25 + 1;			-- èítaè
             if  tmp25 = x"D00" then
                    tmp25 <= x"000";
                    clk_25 <= not clk_25;
@@ -62,7 +63,7 @@ process (clk_25)
                       LED <= "1101";
                     end if;
                   else
-                    data <= data rol 4;  -- vytvorení kódu CRC
+                    data <= data rol 4;  -- vytvoøení kódu CRC
                     help <= data;
                     if data >= "100000000000" then
                     help <= help xor code;
@@ -100,53 +101,53 @@ process (clk_25)
                     help <= help xor code;
                     end if;
                   
-                    ledd <= help(3 downto 0); -- Zjistìní kódu 
-                    if ledd = "0000" then	  -- a poslanání	
+                    ledd <= help and mask2; -- Zjistìní kódu 
+                    if ledd = "000000000000" then	  -- a poslanání	
                     LED <= "1111";		  -- na výstup LED
                     end if;
-                    if ledd = "0001" then
+                    if ledd = "000000000001" then
                     LED <= "1110";
                     end if;
-                    if ledd = "0010" then
+                    if ledd = "000000000010" then
                     LED <= "1101";
                     end if;
-                    if ledd = "0011" then
+                    if ledd = "000000000011" then
                     LED <= "1100";
                     end if;
-                    if ledd = "0100" then
+                    if ledd = "000000000100" then
                     LED <= "1011";
                     end if;
-                    if ledd = "0101" then
+                    if ledd = "000000000101" then
                     LED <= "1010";
                     end if;
-                    if ledd = "0110" then
+                    if ledd = "000000000110" then
                     LED <= "1001";
                     end if;
-                    if ledd = "0111" then
+                    if ledd = "000000000111" then
                     LED <= "1000";
                     end if;
-                    if ledd = "1000" then
+                    if ledd = "000000001000" then
                     LED <= "0111";
                     end if;
-                    if ledd = "1001" then
+                    if ledd = "000000001001" then
                     LED <= "0110";
                     end if;
-                    if ledd = "1010" then
+                    if ledd = "000000001010" then
                     LED <= "0101";
                     end if;
-                    if ledd = "1011" then
+                    if ledd = "000000001011" then
                     LED <= "0100";
                     end if;
-                    if ledd = "1100" then
+                    if ledd = "000000001100" then
                     LED <= "0011";
                     end if;
-                    if ledd = "1101" then
+                    if ledd = "000000001101" then
                     LED <= "0010";
                     end if;
-                    if ledd = "1110" then
+                    if ledd = "000000001110" then
                     LED <= "0001";
                     end if;
-                    if ledd = "1111" then
+                    if ledd = "000000001111" then
                     LED <= "0000";
                     end if;
                   end if;
