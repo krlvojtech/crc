@@ -29,8 +29,8 @@ begin
 process (CLK)
     begin
         if rising_edge(CLK) then
-            tmp25 <= tmp25 + 1;			-- èítaè
-            if  tmp25 = x"C00" then
+            tmp25 <= tmp25 + 1;			-- cÃ­tac
+            if  tmp25 = x"D00" then
                    tmp25 <= x"000";
                    clk_25 <= not clk_25;
             end if;
@@ -40,7 +40,7 @@ process (CLK)
 process (clk_25)
     begin
         if rising_edge(clk_25) then
-		     if SW0 = '0' then		-- reset
+            if SW0 = '0' then		-- reset
 			  code <= "100100000000";   
 			  LED <= "1111";
 			  data <="000000000000";
@@ -49,24 +49,20 @@ process (clk_25)
         		
 			else
                   if row /= "1000" then
-                    if BTN0 = '0' then		-- zadávání 0
+                    if BTN0 = '0' then		-- zadÃ¡vÃ¡nÃ­ 0
                       data <= data or mask0;
                       data <= data rol 1;
                       row <= row + 1;
-                      LED(0) <= "0";
-                      LED(1) <= "1";
-                      LED(3) <= not LED(3);     
+                      LED <= "1110";    
                     end if;
-                    if BTN1 = '0' then		-- zadávání 1
+                    if BTN1 = '0' then		-- zadÃ¡vÃ¡nÃ­ 1
                       data <= data or mask1;
                       data <= data rol 1;
                       row <= row + 1;
-                      LED(0) <= "1";
-                      LED(1) <= "0";
-                      LED(3) <= not LED(3);
+                      LED <= "1101";
                     end if;
                   else
-                    data <= data rol 4;  -- vytvoøení kódu CRC
+                    data <= data rol 4;  -- vytvorenÃ­ kÃ³du CRC
                     help <= data;
                     if data >= "100000000000" then
                     help <= help xor code;
@@ -104,9 +100,9 @@ process (clk_25)
                     help <= help xor code;
                     end if;
                   
-                    ledd <= help(3 downto 0); -- Zjistìní kódu 
-                    if ledd = "0000" then	  -- a poslanání	
-                    LED <= "1111";		  -- na výstup LED
+                    ledd <= help(3 downto 0); -- ZjistÃ¬nÃ­ kÃ³du 
+                    if ledd = "0000" then	  -- a poslanÃ¡nÃ­	
+                    LED <= "1111";		  -- na vÃ½stup LED
                     end if;
                     if ledd = "0001" then
                     LED <= "1110";
@@ -154,7 +150,7 @@ process (clk_25)
                     LED <= "0000";
                     end if;
                   end if;
-		     end if
+		     end if;
         end if;       
     end process;
 end Behavioral;
